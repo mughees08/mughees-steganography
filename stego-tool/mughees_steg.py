@@ -74,7 +74,7 @@ def usable(path):
 
 def embed_chunk(arr, chunk, salt, iters, count, total_size, idx, total):
     hdr = struct.pack(HEADER_FMT, MAGIC, salt, iters, 3, 0, total_size, count, idx, total, len(chunk))
-    bits = np.unpackbits(np.frombuffer(hdr + chunk, dtype=np.uint8))
+    bits = np.unpackbits(np.frombuffer(hdr + chunk, dtype=np.uint8), bitorder="big")
     flat = arr.reshape(-1)
     flat[:bits.size] = (flat[:bits.size] & 0xFE) | bits
     return arr
@@ -82,10 +82,10 @@ def embed_chunk(arr, chunk, salt, iters, count, total_size, idx, total):
 def read_chunk(path):
     with Image.open(path) as im: arr = np.array(im.convert("RGB"), dtype=np.uint8)
     flat = arr.reshape(-1)
-    f = struct.unpack(HEADER_FMT, np.packbits(flat[:HEADER_SIZE*8] & 1).tobytes())
+    f = struct.unpack(HEADER_FMT, np.packbits(flat[:HEADER_SIZE*8] & 1, bitorder="big").tobytes())
     if f[0] != MAGIC: raise ValueError("no payload")
     clen = f[-1]; end = HEADER_SIZE*8 + clen*8
-    chunk = np.packbits(flat[HEADER_SIZE*8:end] & 1).tobytes()
+    chunk = np.packbits(flat[HEADER_SIZE*8:end] & 1, bitorder="big").tobytes()
     return dict(salt=f[1], iterations=f[2], total_size=f[5], file_count=f[6], idx=f[7], total=f[8], chunk=chunk)
 
 def cmd_hide(args):
