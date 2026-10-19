@@ -27,4 +27,32 @@
 * [0]  Exit
 
 ---
-*If you like this project, don't forget to star the repository!*
+
+## 📦 Installation Guide
+
+### 📱 Termux (Android)
+    pkg update && pkg upgrade -y
+    pkg install python git -y
+    pip install pillow numpy cryptography
+    git clone https://github.com/mughees08/mughees-steganography.git
+    cd mughees-steganography
+    python3 stego-tool/mughees_steg.py
+
+### 🐧 Kali Linux / 🟠 Ubuntu / 🦜 Parrot OS
+    sudo apt update
+    sudo apt install python3 python3-pip git -y
+    pip3 install pillow numpy cryptography
+    git clone https://github.com/mughees08/mughees-steganography.git
+    cd mughees-steganography
+    python3 stego-tool/mughees_steg.py
+
+### 🏴‍☠️ BlackArch Linux
+    sudo pacman -Syu
+    sudo pacman -S python python-pip git --noconfirm
+    pip install pillow numpy cryptography
+    git clone https://github.com/mughees08/mughees-steganography.git
+    cd mughees-steganography
+    python3 stego-tool/mughees_steg.py
+
+---
+*If you like this project, don't forget to ⭐ star the repository!*
