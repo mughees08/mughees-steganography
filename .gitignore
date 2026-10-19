@@ -1,0 +1,10 @@
+__pycache__/
+*.pyc
+*.png
+!docs/*.png
+out/
+recovered/
+.venv/
+.env
+*.apk
+*.exe
